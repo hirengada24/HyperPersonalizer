@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Input Form</title>
+  </head>
+  <body>
+    <form method="post" action="/output/">
+      {% csrf_token %}
+      <label for="user_input">Enter some text:</label>
+      <input type="text" name="user_input" id="user_input">
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

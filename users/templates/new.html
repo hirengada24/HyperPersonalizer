@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<head>
+<title>Dynamic Personalizer</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: black;
+  color: white;
+  width: 100%;
+  height:75px;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 70%;
+  height: 550px; /* only for demonstration, should be removed */
+  background: #D1D1F6;
+  padding: 20px;
+<!--  background-image: url(../static/images/capgemini.jfif);-->
+  background-repeat : no-repeat;
+  background-blend-mode: light;
+  background-width: 20%
+
+  padding: 200px;
+
+<!--  background-size: cover;-->
+
+}
+
+article {
+  float: left;
+  padding: 20px;
+  width: 30%;
+  background-color: #E6E6FA;
+  height: 550px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 50%;
+    height: auto;
+  }
+
+}
+</style>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+</head>
+
+<body>
+<header>
+<h7>
+        <div class="w3-container">
+
+            <div class="row">
+                <div class="col-sm-1">
+
+                </div>
+            </div> <br>
+            <div class="row">
+                <div class="col-sm-1">
+                  <form action="/button/" method="post">
+                      {% csrf_token %}
+                      <a href="http://127.0.0.1:8000/" style="color: white; background-color: #fd5e14;"> <h5>Home</h5>
+                      </a>
+                  </form>
+                </div>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="col-sm-1">
+                    <form action="/button/" method="post">
+                      {% csrf_token %}
+                      <a href="http://127.0.0.1:8000/">
+                        <img src="{% static 'images/capgemini.png' %}" height="30" >
+                      </a>
+                    </form>
+                </div>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <div class="col-sm-1">
+                    <form action="/logout/" method="post">
+                      {% csrf_token %}
+                        <input type="submit" value="Sign out" style="color: white; background-color: #fd5e14; text-align:right"> <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+</h7>
+</header>
+
+<section>
+  <nav>
+    <h7><i><b style="color:blue">Welcome </b> <b>{{data10}} </b></i></h7> <br>
+
+    <form action="/external/" method="post">
+        {% csrf_token %}
+    </form>
+    <br>
+
+        <div class="w3-container">
+
+          <div class="w3-bar w3-black">
+            <button class="w3-bar-item w3-button tablink w3-red" onclick="openCity(event,'Account')">Account</button>
+            <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Profile')">Profile</button>
+            <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Travel')">Travel</button>
+            <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Reward')">Reward Information</button>
+
+          </div>
+
+
+
+          <div id="Account" class="w3-container w3-border city">
+                <div class="container">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-4">
+                            </div>
+                        </div> <br>
+
+
+
+                        <div class="col-sm-4">
+                            <b style="color:blue">Account ID: </b> {{data1}}
+                        </div>
+                        <div class="col-sm-4">
+                           <b style="color:blue"> Card Assigned: </b>{{data3}}
+                        </div>
+                    </div> <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <b style="color:blue">Home_Owner:</b> {{data8}}
+                        </div>
+                        <div class="col-sm-4">
+                           <b style="color:blue">Bus_Owner: </b>{{data9}}
+                        </div>
+                        <div class="col-sm-4">
+                            <b style="color:blue">Annual Income:</b> {{data5}}
+                        </div>
+                    </div>
+                </div>
+          </div>
+
+          <div id="Profile" class="w3-container w3-border city" style="display:none">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+
+                    </div>
+                </div> <br>
+                <div class="row">
+                    <br>
+                    <div class="col-sm-4">
+                        <b style="color:blue">Birth Year:</b> {{data2}}
+                    </div>
+                    <div class="col-sm-4">
+                        <b style="color:blue">Age: </b>{{data15}}
+                    </div>
+                </div> <br>
+                <div class="row">
+                        <div class="col-sm-4">
+                            <b style="color:blue">Address: </b>{{data11}}
+                        </div>
+                        <div class="col-sm-4">
+                            <b style="color:blue">Apartment: </b>{{data12}}
+                        </div>
+                        <div class="col-sm-4">
+                            <b style="color:blue">City: </b>{{data13}}
+                        </div>
+                    </div> <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <b style="color:blue">State: </b>{{data14}}
+                        </div>
+                        <div class="col-sm-4">
+                           <b style="color:blue">Zipcode: </b>{{data4}}
+                        </div>
+                    </div> <br>
+                    <div class="row">
+                    <br>
+                    <div class="col-sm-4">
+                        <b style="color:blue">Phone:</b> {{data16}}
+                    </div>
+                    <div class="col-sm-4">
+                        <b style="color:blue">Email: </b>{{data17}}
+                    </div>
+                </div> <br>
+            </div>
+          </div>
+
+              <div id="Travel" class="w3-container w3-border city" style="display:none">
+                </div>
+
+             <div id="reward" class="w3-container w3-border city" style="display:none">
+                </div>
+
+        </div>
+
+        <script>
+        function openCity(evt, cityName) {
+          var i, x, tablinks;
+          x = document.getElementsByClassName("city");
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablink");
+          for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+          }
+          document.getElementById(cityName).style.display = "block";
+          evt.currentTarget.className += " w3-red";
+        }
+        </script>
+  </nav>
+
+    <article>
+        <h5 align="center"> Dear {{data10}}, based on your financial profile and few other individual characteristics, we are pleased to present you this pre-approved card  </h5>
+            <h6 align="center"><b style="color:blue"><i>{{data6}} </i></b></h6> <br>
+
+        <p style="text-align:center;"><img src="{% get_static_prefix %}images/{{ data6 }}.png" alt="" height="100"><br><br>
+
+          <form action = "/hyper/" method="POST">
+           {% csrf_token %}
+           <div class="w3-center" style="text-align:center">
+
+            <p> <b>Did you like the suggested Credit Card? </b></p>
+                <div id="id_radio_choice">
+                    <label for="id_radio_choice_0"><input type="radio" name = "radio_choice" value="Yes" required id="id_radio_choice_0"
+                                                          style="text-align:center" > Apply <i class="glyphicon glyphicon-thumbs-up" style="font-size:24px;color:blue;"></i> </label><br>
+                    <label for="id_radio_choice_1"><input type="radio" name = "radio_choice" value="No" required id="id_radio_choice_1"
+                                                          style="text-align:center" > Decline <i class="glyphicon glyphicon-thumbs-down" style="font-size:24px;color:red;"></i> </label><br>
+                    <button type="submit" style="color: white; background-color: #fd5e14;">Submit!</button>
+                </div>
+           </div>
+          </form>
+
+    </article>
+</section>
+</body>
+</html>
