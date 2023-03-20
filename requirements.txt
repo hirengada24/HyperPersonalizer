@@ -1,1 +1,5 @@
 django==4.1.7
+django-crispy-forms
+whitenoise
+azure-ai-personalizer
+azure-cognitiveservices-personalizer
