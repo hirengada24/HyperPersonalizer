@@ -40,39 +40,36 @@ def executeQuery(url, ontology, token, query):
 
 def timbrcall():
     url = "https://cap-env.timbr.ai" # http://<hostname> or https://<hostname>
-    ontology = "personalizerpoc" # ontology name
+    ontology = "personalizerpoc_syn"#"personalizerpoc" # ontology name
     token = "tk_fee921d10dbb8127b750959f97ab9be5262380f57845e4fa10f14a75e750a978" # user token
     query = """SELECT DISTINCT 
         `account_id` AS `Account_ID`, 
-        `cards_account_id[cards].type_of_card` AS `Card_Assigned`,
+        `cards_account_id[cards].card_assigned` AS `Card_Assigned`, 
         `annual_income` AS `Annual_Income`,  
         `~zipcode[zipcode].per_capita_income_zipcode` AS `Avg_Income_In_Zip`,
         `birth_year` AS `Birth_Year`, 
-        `bussiness_owner` AS `Bus_Owner`, 
+        `is_mortgage[mortgage].bus_owner` AS `Bus_Owner`, 
         `current_age` as `Current_Age`, 
-        `existing_customer` AS `Customer_Ind`, 
-        `fico_score` AS `Credit_Scope`, 
+        `cards_account_id[cards].customer_ind` AS `Customer_Ind`,
+        `credit_score` AS `Credit_Score`,
         `gender` AS `Gender`, 
-        `highnetworth` AS `HNI_Customer`, 
-        `home_owner` AS `Home_Owner`, 
-        `incarcinated` AS `Incarcerated`, 
-        `last_time_when_card_was_purchased` AS `Last_Card_Opened`, 
+        `hni_customer` AS `HNI_Customer`, 
+        `is_mortgage[mortgage].home_owner` AS `Home_Owner`,
+        `incarcirated` AS `Incarcerated`, 
+        `cards_account_id[cards].last_card_opened` AS `Last_Card_Opened`, 
         `~account_id[logins].login_duration` AS `Login_Duration`, 
         `~account_id[logins].login_time` AS `Login_Time`, 
-        `num_credit_cards` AS `Num_Cards`, 
+        `cards_account_id[cards].num_cards` AS `Num_Cards`, 
         `retirement_age` AS `Retirement_Age`, 
         `total_debt` AS `Total_Debt`, 
         `zipcode` AS `Zipcode`, 
-        `person_name` AS `Customer_Name`,
-         `address` AS `Address`,
-         `apartment` AS `Apartment`,
-          `city` AS `City`,
-           `state` AS `State`
+        `customer_name` AS `Customer_Name`,
+        `address` AS `Address`,
+        `apartment` AS `Apartment`,
+        `city` AS `City`,
+        `state` AS `State`
     FROM `dtimbr`.`customer`
-    where 
-    --account_id ='708082087' AND
-    `cards_account_id[cards].type_of_card`<>'None'
-    --LIMIT 10"""
+    where `cards_account_id[cards].card_assigned` <> 'None'"""
 
     response = executeQuery(url, ontology, token, query)
     print(response)
@@ -99,9 +96,6 @@ def timbrdf_to_dict_obj(timbrdf):
     timbrdf['Avg_Income_In_Zip'] = timbrdf['Avg_Income_In_Zip'].astype(float)
     timbrdf['Total_Debt'] = timbrdf['Total_Debt'].str.replace('$', '').str.replace(',', '')
     timbrdf['Total_Debt'] = timbrdf['Total_Debt'].astype(float)
-    # year to int
-    timbrdf['Birth_Year'] = timbrdf['Birth_Year'].str.strip()
-    timbrdf['Birth_Year'] = timbrdf['Birth_Year'].astype(int)
     # removing white spaces and making uniform string
     timbrdf['Bus_Owner'] = timbrdf['Bus_Owner'].str.strip()
     timbrdf['Bus_Owner'] = timbrdf['Bus_Owner'].str.title()
@@ -165,7 +159,7 @@ def external(request):
             # The list of actions to be ranked with metadata associated for each action.
             actions_and_features = {
                 "Rewards card": {
-                    "Annual_Income": 60000 - 99000,
+                    "Annual_Income": "60000.0-99000.0",
                     "Home_Owner": "No"
                 },
                 "Business Card": {
@@ -187,8 +181,8 @@ def external(request):
                     "Home_Owner": "No"
                 },
                 "Student Card": {
-                    "Current_Age": 18 - 21,
-                    "Annual_Income": "0-30000"
+                    "Current_Age": "18-21",
+                    "Annual_Income": "0.0-30000.0"
                 }
             }
             actions = get_actions(actions_and_features)
